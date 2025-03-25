@@ -25,7 +25,7 @@ Using the FarEarth side menu, navigate to DEVELOPER -> API. This page provides a
 
 ## OpenAPI schemas
 
-A OpenAPI JSON schema file is available at https://gateway.dev.alva.pinkmatter.local/api/public/api-schema/subscription to allow an end-user to generate his/her own API integration code.
+A OpenAPI JSON schema file is available at https://gateway.farearth.space/api/public/api-schema/subscription to allow an end-user to generate his/her own API integration code.
 
 ## STAC access
 
