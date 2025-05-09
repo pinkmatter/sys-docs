@@ -5,6 +5,7 @@
 **Release Notes** for the official FarEarth3 releases. Each release note will contain new features in the version, bug fixes that were made and any relevant support notes.
 
 ### Release 3.19.x
+* [3.19.1](3.19.1.md) (released 2025/05/09)
 * [3.19.0](3.19.0.md) (released 2025/03/20)
 
 ### Release 3.18.x
