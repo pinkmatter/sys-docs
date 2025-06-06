@@ -1,8 +1,9 @@
 # Java command-line runtime configuration
 
-> Back to the [Runtimes Page](runtimes.md)
+##### [Home](../../README.md) > [Processing](../processing.md) > [Runtimes](runtimes.md) > Cmdline
+---
 
-## Example configuration
+Below is an example of a Java processor that can be started by the *FarEarth* Processor app, as a separate process. For this runtime, the code for the Executor must be compiled into the processor app already.
 
 ```json
 {

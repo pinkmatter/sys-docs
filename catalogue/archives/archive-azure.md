@@ -1,8 +1,9 @@
 # Azure Archive configuration
 
-> Back to the [Archive Page](archives.md)
+##### [Home](../../README.md) > [Catalogue](../catalogue.md) > [Archive](archives.md) > Azure
+---
 
-## Example configuration
+Below is an example of a *FarEarth* [Archive](archives.md) configuration for Microsoft Azure's blob storage.
 
 ```json
 {
@@ -22,3 +23,12 @@
     }
 }
 ```
+The required properties for the Azure blog storage are:
+
+| Field | Details |
+|-------|---------|
+| `containerName` | Name of the container as it is configured on Azure |
+| `baseUrl`    | Base URL (hostname) of the container, as provided by Microsoft |
+| `connectionString`  | Secure connection string used to access the container, as provided by Microsoft |
+
+*FarEarth* uses a secure data transfer mechanism, where the access credentials, including the connectionString, never leaves the *FarEarth* server where it is configured (e.g., the Gateway). This means that even if other *FarEarth* components, running in other security realms, requires access to the data in the container, it requests the access via the Gateway, using industry standard secure communication. Data is retrieved via short-lived, access-constrained, and pre-signed URLs.

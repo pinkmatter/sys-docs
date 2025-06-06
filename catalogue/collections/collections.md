@@ -1,75 +1,87 @@
 # Collection configuration
 
-> Back to the [Catalogue Page](../catalogue.md)
+##### [Home](../../README.md) > [Catalogue](../catalogue.md) > Collections
+---
+##### Table of contents
+* [Configuration](#configuration)
+  + [Create new collection](#create-new-collection)
+  + [Edit collection](#edit-collection)
+* [Collection details](#collection-details)
+---
 
-## Background
+The *FarEarth* Catalogue extends the STAC collections concept to enable searching for any data in a datastore. It is also possible to search for external STAC compliant catalogues in this way. 
 
-**Collections** are defined as FarEarth's method of searching for ingested data, be it input or product, in FarEarth's *Catalogue* as a viewing and inspection tool named a Catalog. The database format of all ingested data is STAC compliant, and therefore any queries directed at the Catalogue via *collections* should be created with that in mind.
-
-* Apart from querying FarEarth's own internal Catalogue storage it is also possible to query outside STAC compliant databases two examples of this would be *element84's* *Copernicus DEM GLO-30* references or the *USGS's* *Landsat Collection 2 L1* products, however there are many more out there . It should be noted that some of these STAC compliant databases do require payment, and are not always free.
-
-* Additionally just a brief overview of FarEarth's storage and searching concepts, all  inter-related to each other and how FarEarth handles data:
-    * **Archive**: FarEarth's physical datastore and main storage for all inputs and related product files that are published during processing.
-    * **Catalogue**: The application wherein the Archive lives, as well as the front-end GUI from where all data can be queried for and viewed.
-    * **Catalog**: A method of grouping collections together, usually by subcription ID or proxied provider.
-    * **Collection**: A json blob that queries a STAC compliant database and returns with the search results specified.
+Collections are also the primary method of granting another subscription access files within your archive. This is achieved by sharing the collection resource with another subscription, allowing you to control exactly what kind of products other users should have access to without setting up a dedicated archive.
 
 ## Configuration
 
-Creating a **Collection** occurs on the **COLLECTIONS** page under the **CATALOGUE CONFIG** section of any subscription. 
-You do however need to be an **administrator** or **root admin** with a **Catalogue** resource shared to said subscription to have the necessary permissions for creating, editing or deleting a collection. 
+> **Note**: You require the 'admin' role to be able to create and edit collections in *FarEarth*. The user must have access to the 'Catalogue' resource, or a bundled self-hosted application.
 
-* Take note however that if the collection is being created under a *bundled* application such as FarEarth's **Gateway-Bundled** or **Director-Bundled**, a *Catalogue* is part of the overall bundled installation, which does not require specific sharing of said resource to the **farearth** subscription.
+### Create new collection
 
-* To create a new *collection*, click on the **CREATE COLLECTION** button, for the **New Collection** modal to be displayed. Within this modal a few key fields are displayed that should be filled in by the admin user.
+To create a new collection, or edit an existing collection, follow these steps:
 
-> Defining the contents of the modal:
+1. Navigate to the COLLECTIONS page, under CATALOGUE CONFIG
 
-| Field | Description | Details |
-|-------|-------------|---------|
-| App | Parent Application | The application under which the collection is being created i.e., *gateway-bundled*, *catalogue* etc. |
-| Subscription | Parent subscription | The subscription under which the collection is being created such as the *farearth* subscription |
-| ID | Collection ID | The ID value that the admin chooses for the collection to be created under |
-| File Name | JSON file name | The actual file name of the collection json file generated. This is prepopulated when entering the *ID*, with the *subscription*.*ID*.*collection*.*json*, however the admin is free to choose what the file name should be, within formatting rules |
-| Title | Name of the collection | The actual name of the collection displayed within the Catalogue, under the Catalog section  |
-| Description | Collection description | A description of the search results that would be garnered by running the collection |
+   ![Collections menu](menu-collections.png "Navigate to the COLLECTIONS menu")
 
-* After filling out the form with the collection details, and clicking the **CREATE** button a new collection will be generated on the **COLLECTIONS** page, with a default json blob contained within it. This requires further configuration explained below.
+1. Click on the "CREATE COLLECTION" button on the right
 
-> Example of default generated collection json config:
+   ![Create collection button](button-create-collection.png)
+
+1. In the New Collection window, enter the following required fields:
+
+   | Field          | Details     |
+   |----------------|-------------|
+   | App            | The *FarEarth* application ID where the collection will be created |
+   | ID | A unique ID for the collection |
+   | Title | A name for the collection |
+   | Description | A short description of the collection |
+
+1. Click on CREATE
+
+After creating the collection, *FarEarth* will add additional fields automatically to the collection:
+
+| Field | Details |
+|-------|---------|
+| Enabled | Controls whether the collection is enabled or not |
+| File Name | The JSON filename of the collection as stored on disk |
+| Shareable | Controls whether the collection may be shared with other subscriptions |
+| Exclusive | Limits the collection to be shareable with only one subscription |
+
+The new collection will appear in the list. The collection is pre-populated with a template that requires further editing.
+
+### Edit collection
+
+To edit the collection, click on the 'File Name' in the collection list.
+
+Below are a few example collection configurations.
+
+**Filter on dataset**
+
+In this example, the collection includes all data with a `dataset` field equal to `qa-data`.
+
 
 ```json
 {
     "details": {
-        "id": "farearth.test",
-        "title": "Test",
-        "description": "test description"
-    },
-    "filter": {
-    }
-}
-```
-
-* There are quite a lot of queryable parameters when searching through FarEarth's Catalogue or from outside sources, via the usage of collections. See below a few examples of collections and their relative format with an explanation to follow.
-
-> Example collections:
-
-```json
-{
-    "details": {
-        "id": "farearth.geni",
-        "title": "Geni benchmark datasets",
-        "description": "Geni benchmark datasets"
+        "id": "my.collection",
+        "title": "My collection",
+        "description": "Short description of my collection"
     },
     "filter": {
         "query": {
             "dataset": {
-                "eq": "geni-benchmarks"
+                "eq": "qa-data"
             }
         }
     }
 }
 ```
+
+**Filter on spacecraft and product type**
+
+This example shows a collection with a compound filter. All conditions of the query must match (AND query). Only `L1A` products, from the `TRUBIT-1` spacecraft, which are stored within the `trueorbit` subscription will be provided.
 
 ```json
 {
@@ -95,6 +107,10 @@ You do however need to be an **administrator** or **root admin** with a **Catalo
 }
 ```
 
+**External STAC collection**
+
+Thi is an example of proxying data from an external STAC catalog. The proxy is configured to expose the Element84 Copernicus DEM GLO-30 data, using the AWS Earth Search API.
+
 ```json
 {
     "details": {
@@ -109,6 +125,8 @@ You do however need to be an **administrator** or **root admin** with a **Catalo
     }
 }
 ```
+
+Below is another example proxying the USGS STAC Server for the Landsat Collection 2 Level 1 products.
 
 ```json
 {
@@ -125,19 +143,31 @@ You do however need to be an **administrator** or **root admin** with a **Catalo
 }
 ```
 
+## Collection details
+
+The table below lists the various fields in a collection configuration.
+
+
+
 > Collection json file contents with definitions:
 
-| Field | Example Value | Description | Details |
-|-------|---------------|-------------|---------|
-| filter | query | Search by using | There are multiple available query parameters, that a creator can also link together to create more in depth limited scope searches with. Examples of such query parameters are: |
-|        |       |                 | - *productType*: Searching via a specific product type such as *RAW*, *L0*, *L1A*, *L1C*, etc. |
-|        |       |                 | - *spacecraft*: Searching via a specific spacecraft ID such as *TRUBIT-1* etc. |
-|        |       |                 | - *subscriptionId*: Searching within the constraints of a specific subscription such as *farearth*, *trueorbit* etc. |
-| proxy | sourceId, sourceTitle, baseUrl | Proxy search by | Using external data source providers, there are a few required parameters to access their STAC compliant servers namely: |
-|  |  |  | - sourceId: This field represents the unique identifier assigned to the particular data source within the STAC Catalog |
-|  |  |  | - sourceTitle: This field represents the name associated with the data source |
-|  |  |  | - baseUrl: This field represents the endpoint of the STAC API for the particular source |
+| Field | Example Value | Details |
+|-------|---------------|---------|
+| `filter` | `query` | There are multiple available query parameters, that a creator can also link together to create more in depth limited scope searches with. Examples of such query parameters are: |
+| `proxy` | `sourceId` `sourceTitle` `baseUrl` | Using external data source providers, there are a few required parameters to access their STAC compliant servers namely: |
 
-* As mentioned it is possible to taper the possible search results by adding additional query parameters in a chained fashion, as can be seen in the *TRUBIT-1-l1a*, collection. In this example collection you can see that the query filters via three specific fields, namely: *productType*, *spacecraft*, and *subscriptionId*, which effectively means that all three fields need to be *true* for the relevant results to be displayed within the Catalogue to the user/subscription utilizing the collection.
 
-> Back to the [Catalogue Page](../catalogue.md)
+The `query` field can include a number of parameters:
+
+| Parameter | Example value | Details |
+|-----------|---------------|---------|
+| `productType` | `RAW` `L0` `L1A` `L1C` | Search for a specific product type |
+| `spacecraft` | `TRUEBIT-1` | Search for a specific spacecraft |
+| `subscriptionId` | `farearth` `trueorbit` | Search within a specific subscription |
+
+The `proxy` field must include the following fields:
+| Parameter | Details |
+|-----------|---------|
+| `sourceId` | Unique ID of the data source within a STAC catalog |
+| `sourceTitle` | Name associated with the data source |
+| `baseUrl` | STAC API endpoint of the source |

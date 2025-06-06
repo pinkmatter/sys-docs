@@ -1,8 +1,13 @@
 # Kubernetes runtime configuration
 
-> Back to the [Runtimes Page](runtimes.md)
+##### [Home](../../README.md) > [Processing](../processing.md) > [Runtimes](runtimes.md) > Kubernetes
+---
 
-## Example configuration
+The default method to start executors with *FarEarth* are as Kubernetes containers. The example below shows such a configuration.
+
+Communication to the containers are handled through MQTT.
+
+The container images are retrieved from the specified container registry.
 
 ```json
 {
@@ -17,7 +22,7 @@
         "clusterId": "orion",
         "namespace": "ns-farearth",
         "configMount": "/etc/farearth/certs/incoming:/etc/farearth/certs/incoming",
-        "yamlCredentialsBase64": "YXBpVm...ZXJlPg==",
+        "yamlCredentialsBase64": "<insert base-64 encoded yaml credentials>",
         "jobMemoryLimitGi": 15,
         "jobCpuLimitMilli": 3500,
         "jobDiskLimitGi": 100.0,
@@ -25,8 +30,8 @@
             {
                 "baseUrl": "registry.domain.local:5000",
                 "secure": false,
-                "username": "lorem",
-                "password": "ipsum"
+                "username": "<insert username>",
+                "password": "<insert password>"
             }
         ]
     }

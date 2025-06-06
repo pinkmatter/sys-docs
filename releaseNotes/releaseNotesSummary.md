@@ -1,8 +1,9 @@
 # Release Notes Summary
 
-> Back to the [Main Page](../README.md)
+##### [Home](../README.md) > Release notes
+---
 
-**Release Notes** for the official FarEarth3 releases. Each release note will contain new features in the version, bug fixes that were made and any relevant support notes.
+Release Notes for the official FarEarth for SmallSats releases. Each release note will contain new features in the version, bug fixes that were made and any relevant support notes.
 
 ### Release 3.19.x
 * [3.19.2](3.19.2.md) (released 2025/06/06)

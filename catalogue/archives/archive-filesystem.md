@@ -1,8 +1,9 @@
 # Filesystem Archive configuration
 
-> Back to the [Archive Page](archives.md)
+##### [Home](../../README.md) > [Catalogue](../catalogue.md) > [Archive](archives.md) > Filesystem
+---
 
-## Example configuration
+Below is an example of a *FarEarth* [Archive](archives.md) configuration, for local storage.
 
 ```json
 {
@@ -14,3 +15,10 @@
     }
 }
 ```
+The required properties for the local file system protocol are:
+
+| Field | Details |
+|-------|---------|
+| `storeDirectory`    | Path to local storage directly accessible by the *FarEarth* service. |
+
+> **Note**: This configuration is typically used on self-hosted bundled deployments, where the *FarEarth* instance is packaged as a single executable.

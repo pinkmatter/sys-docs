@@ -1,8 +1,9 @@
 # Java classpath runtime configuration
 
-> Back to the [Runtimes Page](runtimes.md)
+##### [Home](../../README.md) > [Processing](../processing.md) > [Runtimes](runtimes.md) > Classpath
+---
 
-## Example configuration
+Below is an example of a Java processor running within the same JVM as the *FarEarth* Processor app. For this runtime, the code for the Executor must be compiled into the processor app already.
 
 ```json
 {
@@ -17,3 +18,5 @@
     }
 }
 ```
+
+The `enabledExecutors` specify which executors within the JVM is enabled.

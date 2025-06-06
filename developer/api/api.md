@@ -1,35 +1,78 @@
 # API configuration and use
 
-> Back to the [Developer Page](../developer.md)
+##### [Home](../../README.md) > [Developer](../developer.md) > API
+---
+##### Table of contents
+* [Obtaining an API key](#obtaining-an-api-key)
+* [Testing access](#testing-access)
+* [API documentation](#api-documentation)
+* [OpenAPI schemas](#openapi-schemas)
+* [STAC access](#stac-access)
+* [More examples](#more-examples)
+---
+
+This document provides an overview of how to get started using *FarEarth for SmallSats*'s APIs. 
 
 ## Obtaining an API key
 
-1. Navigate to the USERS menu.
-2. Click on your user's email address
-3. Click on the create button to generate an API key
-4. If you would like to remove access for an API key, click the remove button
+Every user has a unique API key. The API key allows all actions in FarEarth that the user has access to.
+
+> **Note**: only users with 'Admin' privileges can generate API keys. An Admin user can generate API keys for any other user in the Subscription.
+
+Follow these steps to obtain a unique user API key:
+
+1. Log into the *FarEarth* portal using your Admin user credentials
+1. Navigate to the USERS menu
+
+   ![Users menu](menu-users.png "Users menu")
+
+1. In the list of users, click on the user's email address
+1. On the Edit user panel to the right, click the create button
+
+> **Note**: You can remove the API key and all associated permissions by clicking on the remove button to the right of the key.
 
 ## Testing access
 
-Perform the following curl call to verify the API key works:
+You can use the following curl example to verify that the API key works:
 
 ```bash
 curl -H "Content-Type: application/json" \
-  -H "X-API-Key: O5t...qm0" \
+  -H "X-API-Key: <insert API key>" \
   -X GET https://gateway.farearth.space/api/ext/v1/test/hello
 ```
 
 ## API documentation
 
-Using the FarEarth side menu, navigate to DEVELOPER -> API. This page provides an interface to explore the available end-points and options available. The page also allows a user to enter his/her API key to test the calls inline.
+All API interfaces are documented within the *FarEarth* portal. You can use this API page to test the calls themselves.
+
+Follow these steps to navigate to the API documentation within the portal:
+
+1. Log into the *FarEarth* portal using your user credentials
+1. Navigate to the API page under the DEVELOPER heading
+
+   ![API menu](menu-api.png "Developer/API menu")
+
+To test the API calls, follow these steps:
+
+1. On the API documentation page in the portal, click the AUTHORIZE button on the right
+
+   ![Authorize button](button-authorize.png "Authorize button")
+
+1. Enter the user API key (see steps above on how to obtain)
+1. Close the window and navigate to the API call to test
+1. Click the "Try it out" button on the right
+1. Enter the required parameters
+1. Click on "Execute"
+
+The response will show a Curl command equivalent to execute the API query and the valid URL. The response from the server with all headers are also shown.
 
 ## OpenAPI schemas
 
-A OpenAPI JSON schema file is available at https://gateway.farearth.space/api/public/api-schema/subscription to allow an end-user to generate his/her own API integration code.
+To assist with creating your own API integration, an OpenAPI JSON schema file is available at https://gateway.farearth.space/api/public/api-schema/subscription.
 
 ## STAC access
 
-A user can also directly interact with the FarEarth Catalogue by using [PySTAC](https://github.com/stac-utils/pystac)
+Below is an example using [PySTAC](https://github.com/stac-utils/pystac) to query the *FarEarth* APIs. The example uses an environment variable, namely `FE3_API_KEY` that contains the API key (see details above on how to obtain).
 
 ```python
 import os
@@ -80,6 +123,4 @@ if __name__ == "__main__":
 
 ## More examples
 
-Also refer to the Git repository at https://github.com/pinkmatter/farearth-api-examples for more examples.
-
-> Back to the [Developer Page](../developer.md)
+For more examples of how to interact with teh APIs, visit our GitHub repository at https://github.com/pinkmatter/farearth-api-examples for more examples.
